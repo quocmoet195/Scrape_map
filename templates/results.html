@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+
+    <title>Scraped Results</title>
+</head>
+<body>
+    <h1>Scraped Results</h1>
+    
+    <table  border="1" style="width: 95%; border-collapse: collapse;padding:1px; border:1px" >
+        <thead>
+            <tr>
+                <th>Name Address</th>
+                <th>Average Star Rating</th>
+                <th>Stars Distribution</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td>{{ result.data[0].name_url }}</td>
+                    <td>{{ result.average_star }}</td>
+                    <td>{{ result.value_stars | join('<br>') | safe  }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <form action="/save_reviewers" method="POST">
+        <button type="submit">Save Reviewers</button>
+    </form>
+        <a href="/" class="back-link">Go Back</a>
+    
+</body>
+</html>

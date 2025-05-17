@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+
+
+    <title>Data Scraper</title>
+    <script>
+        function addUrlInput() {
+            const container = document.getElementById("url-container");
+            const inputGroup = document.createElement("div");
+            inputGroup.className = "url-input-group";
+            inputGroup.innerHTML = ` 
+                <input type="text" name="urls" placeholder="Enter URL here" required>
+                <button type="button" onclick="removeUrlInput(this)">Remove</button>
+            `;
+            container.appendChild(inputGroup);
+        }
+
+        function removeUrlInput(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Enter URLs to Scrape Reviews</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <script>
+        alert("{{ message }}");
+    </script>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form action="/process" method="POST">
+        <div id="url-container">
+            <div class="url-input-group">
+                <input type="text" name="urls" placeholder="Enter URL here" required>
+                <button type="button" onclick="removeUrlInput(this)">Remove</button>
+            </div>
+        </div>
+        <button type="button" onclick="addUrlInput()">Add Another URL</button><br><br>
+        <label for="count_cmt">Number of Comments:</label><br>
+        <input type="number" id="count_cmt" name="count_cmt" value="5"><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>
+
